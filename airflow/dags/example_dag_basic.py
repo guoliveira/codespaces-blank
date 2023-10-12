@@ -50,7 +50,7 @@ def example_dag_basic():
     @task(
         multiple_outputs=True
     )  # multiple_outputs=True unrolls dictionaries into separate XCom values
-    def transform(order_data_dict: dict):
+    def transformation(order_data_dict: dict):
         """
         #### Transform task
         A simple "transform" task which takes in the collection of order data and
@@ -58,7 +58,7 @@ def example_dag_basic():
         """
         total_order_value = 0
 
-        for value in order_data_dict.values():
+        for value in order_data_dict.values():  
             total_order_value += value
 
         return {"total_order_value": total_order_value}
@@ -74,7 +74,7 @@ def example_dag_basic():
         print(f"Total order value is: {total_order_value:.2f}")
 
     order_data = extract()
-    order_summary = transform(order_data)
+    order_summary = transformation(order_data)
     load(order_summary["total_order_value"])
 
 
